@@ -12,12 +12,21 @@ import org.springframework.stereotype.Repository;
 
 import jp.co.sample.domain.Administrator;
 
+/**
+ * administratorsテーブルを操作するリポジトリ.
+ * 
+ * @author rksuser
+ *
+ */
+
 @Repository
 public class AdministratorRepository {
 	
 	@Autowired
 	private NamedParameterJdbcTemplate template;
-	
+	/**
+	 * Administratorオブジェクトを生成するローマッパー.
+	 */
 	private static final RowMapper<Administrator> ADMINISTRATOR_ROW_MAPPER = (rs,i)->{
 		Administrator administrator = new Administrator();
 		administrator.setId(rs.getInt("id"));
@@ -27,21 +36,32 @@ public class AdministratorRepository {
 		return administrator;
 	};
 	
+	/**
+	 * 管理登録者情報を登録する.
+	 * @param administrator
+	 */
 	public void save(Administrator administrator) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
 	    String sql = "INSERT INTO administrator(name,maill_address,password) VALUES(:name, :mailAddress, :password)";
 	    template.update(sql, param);
 	    		
 	}
-	
+	/**
+	 * メールアドレスとパスワードから管理者情報を取得する.
+	 * 存在しない場合はnullを返す.
+	 * @param mailAddress
+	 * @param password
+	 * @return
+	 */
 	public List<Administrator> findByMailAddressAndPassword(String mailAddress, String password) {
 	    	 String sql = "SELECT id,name,mail_address,password FROM administrators WHERE mail_address = :mailAddress, password = :password";
 	    	 SqlParameterSource param = new MapSqlParameterSource().addValue("mail_address",mailAddress).addValue("password", password);
-	    	 List<Administrator> administrator = template.query(sql,param,ADMINISTRATOR_ROW_MAPPER);
-	    	 if(administrator == null) {
+	    	 List<Administrator> administratorList = template.query(sql,param,ADMINISTRATOR_ROW_MAPPER);
+	    	 if(administratorList.size() == 0) {
 	    		 return null;
 	    	 }else {
-	    		 return administrator;
+	    		 administratorList.get(0);
+	    		 return administratorList;
 	    	 }
 	      
 	}
