@@ -38,7 +38,8 @@ public class AdministratorRepository {
 	
 	/**
 	 * 管理登録者情報を登録する.
-	 * @param administrator
+	 * 
+	 * @param administrator 管理者情報
 	 */
 	public void save(Administrator administrator) {
 		SqlParameterSource param = new BeanPropertySqlParameterSource(administrator);
@@ -48,20 +49,21 @@ public class AdministratorRepository {
 	}
 	/**
 	 * メールアドレスとパスワードから管理者情報を取得する.
-	 * 存在しない場合はnullを返す.
-	 * @param mailAddress
-	 * @param password
-	 * @return
+	 * 
+	 * @param mailAddress　メールアドレス
+	 * @param password　パスワード
+	 * @return　管理者情報　(存在しない場合はnullを返す)
 	 */
-	public List<Administrator> findByMailAddressAndPassword(String mailAddress, String password) {
+	public Administrator findByMailAddressAndPassword(String mailAddress, String password) {
 	    	 String sql = "SELECT id,name,mail_address,password FROM administrators WHERE mail_address = :mailAddress, password = :password";
 	    	 SqlParameterSource param = new MapSqlParameterSource().addValue("mail_address",mailAddress).addValue("password", password);
 	    	 List<Administrator> administratorList = template.query(sql,param,ADMINISTRATOR_ROW_MAPPER);
 	    	 if(administratorList.size() == 0) {
 	    		 return null;
 	    	 }else {
-	    		 administratorList.get(0);
-	    		 return administratorList;
+	    		 
+	    		return administratorList.get(0);
+	    		 
 	    	 }
 	      
 	}

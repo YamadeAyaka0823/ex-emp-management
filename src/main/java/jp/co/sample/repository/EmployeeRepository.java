@@ -56,8 +56,8 @@ public class EmployeeRepository {
 	}
 	/**
 	 * 主キーから従業員情報を取得する
-	 * @param id
-	 * @return
+	 * @param id　ID
+	 * @return 従業員情報
 	 */
 	public Employee load(Integer id) {
 		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count FROM employees WHERE id = :id";
@@ -67,7 +67,7 @@ public class EmployeeRepository {
 	}
 	/**
 	 * 従業員情報を変更する
-	 * @param employee
+	 * @param employee 雇用者情報
 	 */
 	public void update(Employee employee) {
 		String sql = "UPDATE employees SET dependents_count = :dependentsCount WHERE id = :id";
