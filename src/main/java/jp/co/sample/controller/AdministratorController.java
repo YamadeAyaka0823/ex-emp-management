@@ -11,7 +11,7 @@ import jp.co.sample.form.InsertAdministratorForm;
 import jp.co.sample.service.AdministratorService;
 /**
  * AdministratoryController.
- * @author rksuser
+ * @author ayaka.yamade
  *
  */
 @Controller
@@ -32,10 +32,11 @@ public class AdministratorController {
 	}
 	
 	@RequestMapping("/insert")
-	public String insert(InsertAdministratorForm form) {
+	public String save(InsertAdministratorForm form) {
 		Administrator administrator = new Administrator();
 		BeanUtils.copyProperties(form,administrator);
-		return "redirect:/toInsert";
+		administratorService.save(administrator);
+		return "redirect:/";
 	}
 
 }
