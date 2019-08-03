@@ -17,5 +17,9 @@ public class AdministratorService {
 	public void save(Administrator administrator) {
 		administratorRepository.save(administrator);
 	}
+	
+	public Administrator findByMailAddressAndPassword(String mailAddress, String password) {
+		return administratorRepository.findByMailAddressAndPassword(mailAddress,password);
+	}
 
 }
