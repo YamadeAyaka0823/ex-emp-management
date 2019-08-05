@@ -2,7 +2,6 @@ package jp.co.sample.controller;
 
 import java.util.List;
 
-import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,22 +49,19 @@ public class EmployeeController {
 	 */
 	@RequestMapping("/showDetail")
 	public String showDetail(String id, Model model) {
-		int id2 = Integer.parseInt(id);
-		Employee employee = employeeService.showDetail(id2);
+		Employee employee = employeeService.showDetail(Integer.parseInt(id));
 		model.addAttribute("employee",employee);
 		return "employee/detail";
 	}
 	
 	/**
-	 * 従業員詳細を更新する
+	 * 従業員詳細を更新する.
 	 * @param form 従業員IDと扶養人数をコピー
 	 * @return 従業員詳細を更新(扶養人数のみ)
 	 */
 	@RequestMapping("/update")
 	public String update(UpdateEmployeeForm form) {
-		System.out.println(form);
 		Employee employee = new Employee();
-//		BeanUtils.copyProperties(form, employee);
 		int id = form.getIntegerId();
 		int dependentsCount = form.getIntegerDependentsCount();
 		employee.setId(id);
