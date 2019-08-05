@@ -38,7 +38,7 @@ public class EmployeeRepository {
 		employee.setTelephone(rs.getString("telephone"));
 		employee.setSalary(rs.getInt("salary"));
 		employee.setCharacteristics(rs.getString("characteristics"));
-		employee.setDependentsCount(rs.getInt("dependent_count"));
+		employee.setDependentsCount(rs.getInt("dependents_count"));
 		return employee;
 	};
 	/**
@@ -46,7 +46,7 @@ public class EmployeeRepository {
 	 * @return
 	 */
 	public List<Employee> findAll(){
-		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_ccount FROM employees ORDER BY hire_date";
+		String sql = "SELECT id,name,image,gender,hire_date,mail_address,zip_code,address,telephone,salary,characteristics,dependents_count FROM employees ORDER BY hire_date";
 		List<Employee> employeeList = template.query(sql, EMPLOYEE_ROW_MAPPER);
 //		if(employeeList.size()==0) {
 //			return null;
