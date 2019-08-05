@@ -14,7 +14,7 @@ public class AdministratorService {
 	@Autowired
 	private AdministratorRepository administratorRepository;
 	
-	public void save(Administrator administrator) {
+	public void insert(Administrator administrator) {
 		administratorRepository.save(administrator);
 	}
 	

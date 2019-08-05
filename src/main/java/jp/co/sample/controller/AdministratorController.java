@@ -40,7 +40,7 @@ public class AdministratorController {
 	public String save(InsertAdministratorForm form) {
 		Administrator administrator = new Administrator();
 		BeanUtils.copyProperties(form,administrator);
-		administratorService.save(administrator);
+		administratorService.insert(administrator);
 		return "redirect:/";
 	}
 	
