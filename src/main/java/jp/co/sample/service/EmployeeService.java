@@ -8,7 +8,12 @@ import org.springframework.transaction.annotation.Transactional;
 
 import jp.co.sample.domain.Employee;
 import jp.co.sample.repository.EmployeeRepository;
-
+/**
+ * 従業員情報を操作するサービス.
+ * 
+ * @author ayaka.yamade
+ *
+ */
 @Service
 @Transactional
 public class EmployeeService {
@@ -16,6 +21,11 @@ public class EmployeeService {
 	@Autowired
 	private EmployeeRepository employeeRepository;
 	
+	/**
+	 * 従業員一覧を取得する.
+	 * 
+	 * @return 従業員一覧
+	 */
 	public List<Employee> showList(){
 		return employeeRepository.findAll();
 	}

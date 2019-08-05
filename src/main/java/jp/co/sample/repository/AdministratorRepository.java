@@ -15,7 +15,7 @@ import jp.co.sample.domain.Administrator;
 /**
  * administratorsテーブルを操作するリポジトリ.
  * 
- * @author rksuser
+ * @author ayaka.yamade
  *
  */
 

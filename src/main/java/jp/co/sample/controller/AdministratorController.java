@@ -15,7 +15,8 @@ import jp.co.sample.form.InsertAdministratorForm;
 import jp.co.sample.form.LoginForm;
 import jp.co.sample.service.AdministratorService;
 /**
- * AdministratoryController.
+ * 管理者情報を操作するコントローラ.
+ * 
  * @author ayaka.yamade
  *
  */
@@ -26,16 +27,31 @@ public class AdministratorController {
 	@Autowired
 	private AdministratorService administratorService;
 	
+	@Autowired
+	private HttpSession session;
+	
 	@ModelAttribute
 	public InsertAdministratorForm setUpInsertAdministratorForm() {
 		return new InsertAdministratorForm();
 	}
 	
+	@ModelAttribute
+	public LoginForm setUpLoginForm() {
+		return new LoginForm();
+	}
+	/**
+	 * 管理者情報を登録する.
+	 * @return ログイン画面
+	 */
 	@RequestMapping("/toInsert")
 	public String toInsert() {
 		return "administrator/insert";
 	}
-	
+	/**
+	 * 管理者情報を登録する.
+	 * @param form リクエストパラメータが入ったフォーム
+	 * @return ログイン画面
+	 */
 	@RequestMapping("/insert")
 	public String save(InsertAdministratorForm form) {
 		Administrator administrator = new Administrator();
@@ -44,21 +60,25 @@ public class AdministratorController {
 		return "redirect:/";
 	}
 	
-	@ModelAttribute
-	public LoginForm setUpLoginForm() {
-		return new LoginForm();
-	}
-	
+	/**
+	 * ログインをする.
+	 */
 	@RequestMapping("/")
 	public String toLogin() {
 		return "administrator/login";
 	}
 	
-	@Autowired
-	private HttpSession session;
 	
+	/**
+	 * ログインをする.
+	 * 
+	 * @param form リクエストパラメータが入ったフォーム
+	 * @param result　エラーメッセージが格納されるオブジェクト
+	 * @param model　リクエストスコープ
+	 * @return　従業員一覧画面　（ログイン失敗時はログイン画面に戻る)
+	 */
 	@RequestMapping("/login")
-	public String findByMailAddressAndPassword(LoginForm form, BindingResult result, Model model) {
+	public String login(LoginForm form, BindingResult result, Model model) {
 		Administrator administrator = administratorService.findByMailAddressAndPassword(form.getMailAddress(),form.getPassword());
 		if(administrator == null) {
 			model.addAttribute("errors","メールアドレスまたはパスワードが不正です。");
